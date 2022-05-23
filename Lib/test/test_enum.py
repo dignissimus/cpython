@@ -188,6 +188,12 @@ class HeadlightsC(IntFlag, boundary=enum.CONFORM):
     HIGH_BEAM_C = auto()
     FOG_C = auto()
 
+@enum.global_enum
+class MusicGenres(Enum):
+    JAZZ = 1
+    POP = 2
+
+MusicGenres.POP._name_ = None
 
 # tests
 
@@ -2628,6 +2634,10 @@ class TestSpecial(unittest.TestCase):
             ENTRY1 = Foo(1)
 
         self.assertEqual(repr(Entries.ENTRY1), '<Entries.ENTRY1: Foo(a=1)>')
+
+    def test_str_with_name_set_to_none(self):
+        self.assertEqual(str(MusicGenres.JAZZ), "JAZZ")
+        self.assertEqual(str(MusicGenres.POP), "MusicGenres(2)")
 
     def test_value_backup_assign(self):
         # check that enum will add missing values when custom __new__ does not
